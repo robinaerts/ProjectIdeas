@@ -1,7 +1,7 @@
 import { DocumentData } from "firebase/firestore";
 import Link from "next/link"
 
-interface Project {
+export interface Project {
     title: string,
     difficulty: number,
     shortDescription: string,
