@@ -286,6 +286,12 @@ a {
   color: white;
   border: none;
   outline: none;
+  transition: 100ms all;
+}
+
+.form-multiple-add:hover {
+  cursor: pointer;
+  transform: scale(1.1);
 }
 
 #submit-form-button {
@@ -297,4 +303,8 @@ a {
   border: none;
   outline: none;
   color: black;
+}
+
+.right-form-input {
+  width: 40vw;
 }
