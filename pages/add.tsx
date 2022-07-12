@@ -8,15 +8,15 @@ const Add: NextPage = () => {
         <button id="upload-md"> | Upload .md file</button>
       </div>
       <form id="add-project-form">
-        <div>
-          <div>
+        <div id="left-form">
+          <div id="title-difficulty-container">
             <div className='add-project-label-input'>
               <label>Title</label>
-              <input/>
+              <input className='rounded-form-input'/>
             </div>
             <div className='add-project-label-input'>
               <label>Difficulty</label>
-              <select>
+              <select id="difficulty-select">
                 <option>Beginner</option>
                 <option>Intermediate</option>
                 <option>Advanced</option>
@@ -25,42 +25,44 @@ const Add: NextPage = () => {
           </div>
           <div className='add-project-label-input'>
             <label>Short Description</label>
-            <input/>
+            <input className='rounded-form-input'/>
           </div>
           <div className='add-project-label-input'>
             <label>Description</label>
-            <textarea rows={10} cols={50}></textarea>
+            <textarea id="form-description" rows={10} cols={50}></textarea>
           </div>
         </div>
-        <div>
+        <div id="form-right">
           <div className='add-project-label-input'>
             <label>Constraints</label>
             <div>
-              <input/>
-              <button>ADD</button>
+              <input className='rounded-form-input'/>
+              <button className='form-multiple-add'>ADD</button>
             </div>
           </div>
           <div className='add-project-label-input'>
             <label>User stories</label>
             <div>
-              <input/>
-              <button>ADD</button>
+              <input className='rounded-form-input'/>
+              <button className='form-multiple-add'>ADD</button>
             </div>
           </div>
           <div className='add-project-label-input'>
             <label>Bonus features</label>
             <div>
-              <input/>
-              <button>ADD</button>
+              <input className='rounded-form-input'/>
+              <button className='form-multiple-add'>ADD</button>
             </div>
           </div>
           <div className='add-project-label-input'>
             <label>Useful links</label>
             <div>
-              <input/>
-              <button>ADD</button>
+              <input className='rounded-form-input'/>
+              <button className='form-multiple-add'>ADD</button>
             </div>
           </div>
+          <input id="submit-form-button" type="SUBMIT" value="Submit Project"/>
+
         </div>
       </form>
     </div>
