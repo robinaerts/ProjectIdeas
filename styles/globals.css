@@ -200,3 +200,13 @@ a {
   padding: 0.8rem 1.1rem;
   margin-top: 2rem;
 }
+
+#finished {
+  background-color: rgb(69, 132, 69);
+  border: none;
+  outline: none;
+  color: white;
+  padding: 0.6rem 1.3rem;
+  font-weight: bold;
+  border-radius: 5px;
+}
