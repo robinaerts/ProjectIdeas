@@ -210,3 +210,31 @@ a {
   font-weight: bold;
   border-radius: 5px;
 }
+
+/* ADD PROJECT */
+#add-project-title-heading {
+  display: flex;
+  margin-top: 3rem;
+  margin-left: 4rem;
+  align-items: center;
+}
+
+#upload-md {
+  background-color: inherit;
+  border: none;
+  outline: none;
+  color: white;
+  margin-left: 3rem;
+}
+
+#add-project-form {
+  display: flex;
+  margin-left: 4rem;
+  margin-top: 3rem;
+  gap: 5rem;
+}
+
+.add-project-label-input {
+  display: flex;
+  flex-direction: column;
+}
