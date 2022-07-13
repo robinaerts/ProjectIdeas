@@ -3,7 +3,6 @@ import type { NextPage } from 'next'
 import { useState } from 'react'
 import { db } from '../config/firebase';
 import Router from 'next/router';
-import compiler from "markdown-to-jsx";
 import Link from 'next/link';
 
 const Add: NextPage = () => {

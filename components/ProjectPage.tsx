@@ -1,8 +1,10 @@
 import { DocumentData } from "firebase/firestore";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import AddExample from "./AddExample";
 
 const ProjectPage = ({project}: DocumentData) => {
+    const [addExample, setAddExample] = useState(false);
     let difficulty = "Loading...";
     if (project.difficulty == 1) difficulty = "Beginner";
     if (project.difficulty == 2) difficulty = "Intermediate";
@@ -95,8 +97,9 @@ const ProjectPage = ({project}: DocumentData) => {
                         <a className="link-wrap" href={example}>Link {i+1}</a>
                     )
                 })}
-                <button id="add-example-btn">ADD YOUR PROJECT</button>
+                <button onClick={() => setAddExample(true)} id="add-example-btn">ADD YOUR PROJECT</button>
             </div>
+            {addExample && <AddExample project={project} setAddExample={setAddExample}/>}
         </div>
     )
 }
