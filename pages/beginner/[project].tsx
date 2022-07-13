@@ -7,7 +7,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
     const entries = await getDocs(collection(db, "projects"));
   const paths = entries.docs.map(doc => ({
     params: {
-      project: doc.data().title.toLowerCase()
+      project: doc.id
     }
   }));
 

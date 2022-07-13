@@ -1,7 +1,8 @@
-import { collection, doc, setDoc } from 'firebase/firestore';
+import { doc, setDoc } from 'firebase/firestore';
 import type { NextPage } from 'next'
 import { useState } from 'react'
 import { db } from '../config/firebase';
+import Router from 'next/router';
 
 const Add: NextPage = () => {
   const [constraints, setConstraints] = useState<string[]>([]);
@@ -14,6 +15,7 @@ const Add: NextPage = () => {
     const newConstraint:string = e.target.parentNode.children[0].value;
     const constraintCopy = constraints.map((value) => value);
     constraintCopy.push(newConstraint);
+    e.target.parentNode.children[0].value = "";
     setConstraints(constraintCopy);
   }
 
@@ -22,30 +24,40 @@ const Add: NextPage = () => {
     const newUserStory:string = e.target.parentNode.children[0].value;
     const userStoryCopy = userStories.map((value) => value);
     userStoryCopy.push(newUserStory);
+    e.target.parentNode.children[0].value = "";
     setUserStories(userStoryCopy);
   };
 
   const addBonus = (e:any) => {
     e.preventDefault();
      const newBonusFeature:string = e.target.parentNode.children[0].value;
-    const bonusFeatureCopy = userStories.map((value) => value);
+    const bonusFeatureCopy = bonusFeatures.map((value) => value);
     bonusFeatureCopy.push(newBonusFeature);
+    e.target.parentNode.children[0].value = "";
     setBonusFeatures(bonusFeatureCopy);
   };
 
   const addUseful = (e:any) => {
     e.preventDefault();
     const newUsefulLinks:string = e.target.parentNode.children[0].value;
-    const usefulLinksCopy = userStories.map((value) => value);
+    const usefulLinksCopy = usefulLinks.map((value) => value);
     usefulLinksCopy.push(newUsefulLinks);
+    e.target.parentNode.children[0].value = "";
     setUsefulLinks(usefulLinksCopy);
   };
 
   const submitProject = async(e:any) => {
     e.preventDefault();
-    const description = "short desc";
-    const difficulty = 1;
-    const title = "Test";
+    console.log(e.target[1].value)
+    const shortDescription = e.target[2].value;
+    const description = e.target[3].value;
+
+    let difficulty = 1;
+    if (e.target[1].value == "Intermediate") difficulty = 2;
+    if (e.target[1].value == "Advanced") difficulty = 2;
+
+    const title = e.target[0].value;
+    const noWhitespaceTitle = e.target[0].value.replace(/ /g,'-').toLowerCase()
 
     const project = {
       constraints,
@@ -53,12 +65,15 @@ const Add: NextPage = () => {
       examples: [],
       description,
       difficulty,
-      shortDescription: "this is short",
+      shortDescription,
       title,
       usefulLinks,
-      userStories
+      userStories,
+      createdAt: Date.now()
     }
-    await setDoc(doc(db, "projects", title), project);
+    await setDoc(doc(db, "projects", noWhitespaceTitle), project);
+
+    Router.push("/" + e.target[1].value.toLowerCase() + "/" + noWhitespaceTitle)
   }
 
   return (
@@ -72,7 +87,7 @@ const Add: NextPage = () => {
           <div id="title-difficulty-container">
             <div className='add-project-label-input'>
               <label>Title</label>
-              <input className='rounded-form-input'/>
+              <input required className='rounded-form-input'/>
             </div>
             <div className='add-project-label-input'>
               <label>Difficulty</label>
@@ -85,11 +100,11 @@ const Add: NextPage = () => {
           </div>
           <div className='add-project-label-input'>
             <label>Short Description</label>
-            <input className='rounded-form-input'/>
+            <input required className='rounded-form-input'/>
           </div>
           <div className='add-project-label-input'>
             <label>Description</label>
-            <textarea id="form-description" rows={10} cols={50}></textarea>
+            <textarea required id="form-description" rows={10} cols={50}></textarea>
           </div>
         </div>
         <div id="form-right">
@@ -99,7 +114,7 @@ const Add: NextPage = () => {
               <input className='rounded-form-input right-form-input'/>
               <button className='form-multiple-add' onClick={(e) => addConstraint(e)}>ADD</button>
               <div>
-                {constraints.map((constraint:string) => <p>{constraint}</p>)}
+                {constraints.map((constraint:string) => <p>- {constraint}</p>)}
               </div>
             </div>
           </div>
@@ -109,7 +124,7 @@ const Add: NextPage = () => {
               <input className='rounded-form-input right-form-input'/>
               <button className='form-multiple-add' onClick={(e) => addUserStory(e)}>ADD</button>
               <div>
-                {userStories.map((story:string) => <p>{story}</p>)}
+                {userStories.map((story:string) => <p>- {story}</p>)}
               </div>
             </div>
           </div>
@@ -119,7 +134,7 @@ const Add: NextPage = () => {
               <input className='rounded-form-input right-form-input'/>
               <button className='form-multiple-add' onClick={(e) => addBonus(e)}>ADD</button>
               <div>
-                {bonusFeatures.map((bonus:string) => <p>{bonus}</p>)}
+                {bonusFeatures.map((bonus:string) => <p>- {bonus}</p>)}
               </div>
             </div>
           </div>
@@ -128,8 +143,8 @@ const Add: NextPage = () => {
             <div>
               <input className='rounded-form-input right-form-input'/>
               <button className='form-multiple-add' onClick={(e) => addUseful(e)}>ADD</button>
-                            <div>
-                {usefulLinks.map((link:string) => <p>{link}</p>)}
+                <div>
+                {usefulLinks.map((link:string) => <p>- {link}</p>)}
               </div>
             </div>
           </div>

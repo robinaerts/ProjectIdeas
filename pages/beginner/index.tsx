@@ -1,9 +1,9 @@
 import ProjectList from "../../components/ProjectList";
 import {db} from "../../config/firebase";
-import { collection, DocumentData, getDocs, query, QueryDocumentSnapshot, where } from "firebase/firestore";
+import { collection, DocumentData, getDocs, orderBy, query, where } from "firebase/firestore";
 
 export const getStaticProps = async () => {
-    const q = query(collection(db, "projects"), where("difficulty", "==", 1))
+    const q = query(collection(db, "projects"), where("difficulty", "==", 1), orderBy("createdAt"))
     const docs = await getDocs(q);
     const projects: DocumentData[] = [];
     docs.forEach((doc) => {

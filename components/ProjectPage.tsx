@@ -78,15 +78,15 @@ const ProjectPage = ({project}: DocumentData) => {
             </div>
             <div id="project-page-right">
                 <h3>Useful Links</h3>
-                {project.usefulLinks.map((link:string) => {
+                {project.usefulLinks.map((link:string, i:number) => {
                     return (
-                        <a href={link}>{link}</a>
+                        <a className="link-wrap" href={link}>Link {i+1}</a>
                     )
                 })}
                 <h3 style={{marginTop: "3rem"}}>Example Projects</h3>
-                {project.examples.map((example:string) => {
+                {project.examples.map((example:string, i:number) => {
                     return (
-                        <a href={example}>{example}</a>
+                        <a className="link-wrap" href={example}>Link {i+1}</a>
                     )
                 })}
                 <button id="add-example-btn">ADD YOUR PROJECT</button>

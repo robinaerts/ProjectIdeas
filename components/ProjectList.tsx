@@ -10,7 +10,8 @@ export interface Project {
     userStories: string[],
     bonusFeatures: string[],
     usefulLinks: string[],
-    examples: string[]
+    examples: string[],
+    createdAt: number
 }
 
 const ProjectList = ({projects}: DocumentData) => {
@@ -18,8 +19,8 @@ const ProjectList = ({projects}: DocumentData) => {
         <div id="project-list">
             {projects.map((project: Project) => {
                 return (
-                <Link href={"/beginner/" + project.title.toLowerCase()}>
-                <div className="project-select">
+                <Link key={project.createdAt} href={"/beginner/" + project.title.replace(/ /g,'-').toLowerCase()}>
+                <div key={project.createdAt} className="project-select">
                     <h4 className="project-select-list-title">{project.title}</h4>
                     <p className="project-select-list-description">{project.shortDescription}</p>
                 </div>
