@@ -3,6 +3,8 @@ import type { NextPage } from 'next'
 import { useState } from 'react'
 import { db } from '../config/firebase';
 import Router from 'next/router';
+import compiler from "markdown-to-jsx";
+import Link from 'next/link';
 
 const Add: NextPage = () => {
   const [constraints, setConstraints] = useState<string[]>([]);
@@ -76,11 +78,28 @@ const Add: NextPage = () => {
     Router.push("/" + e.target[1].value.toLowerCase() + "/" + noWhitespaceTitle)
   }
 
+  // const uploadMd = (e:any) => {
+  //   const file = e.target.files[0];
+  //   if (file == undefined) return;
+  //   const reader = new FileReader();
+  //   reader.readAsText(file);
+  //   reader.onload = function() {
+  //     if (typeof reader.result == "string") extractMd(reader.result);
+  //   };
+  // }
+
+  // const extractMd = (file:any) => {
+  //   console.log("Here")
+  //   // const title = file.slice(file.search('#') +2, file.search('\n'));
+  //   // const difficulty = file.slice(file.search("Tier:") + 7, file.search("Tier:") + 9);
+  // }
+
   return (
     <div>
       <div id="add-project-title-heading">
+        <Link href="/"><p className="back-arrow">&#60;</p></Link>
         <h1>New App Idea</h1>
-        <button id="upload-md"> | Upload .md file</button>
+        {/* <button id="upload-md" onClick={(e:any) => e.target.children[0] && e.target.children[0].click()}><input onClick={(e) => uploadMd(e)} accept='.md' id="file" style={{display: "none"}} type="file" /> | Upload .md file</button> */}
       </div>
       <form id="add-project-form" onSubmit={(e) => submitProject(e)}>
         <div id="left-form">
@@ -148,7 +167,7 @@ const Add: NextPage = () => {
               </div>
             </div>
           </div>
-          <input id="submit-form-button" type="SUBMIT" value="Submit Project"/>
+          <input id="submit-form-button" type="SUBMIT"/>
         </div>
       </form>
     </div>

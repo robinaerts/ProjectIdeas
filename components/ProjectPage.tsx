@@ -1,4 +1,5 @@
 import { DocumentData } from "firebase/firestore";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 
 const ProjectPage = ({project}: DocumentData) => {
@@ -40,19 +41,22 @@ const ProjectPage = ({project}: DocumentData) => {
         <div id="project-page-container">
             <div id="project-page-left">
             <div id="project-heading-container">
+                <Link href={"/" + difficulty.toLowerCase()}><p className="back-arrow">&#60;</p></Link>
                 <h2>{project.title}</h2>
-                <p>| {difficulty}</p>
+                <p style={{marginLeft: "3rem"}}>| {difficulty}</p>
                 {/* {localStorage.getItem(project.title.toLowerCase()) && <button id="finished">Finished!</button>} */}
             </div>
             <div id="description-container">
                 <p>{project.description}</p>
             </div>
-            <div>
-                <h3 className="project-page-section-title">Constraints</h3>
-                {project.constraints.map((constraint:string) => {
+                {project.constraints.length > 0 &&
+            <div>  
+                    <h3 className="project-page-section-title">Constraints</h3>
+                    {project.constraints.map((constraint:string) => {
                     return <p className="project-page-constraint"> - {constraint}</p>
-                })}
+                    })}
             </div>
+                }   
             <div>
                 <h3 className="project-page-section-title">User Stories</h3>
                 {project.userStories.map((userStory:string) => {
@@ -64,6 +68,7 @@ const ProjectPage = ({project}: DocumentData) => {
                     )
                 })}
             </div>
+            {project.bonusFeatures.length > 0 && 
             <div>
                 <h3 className="project-page-section-title">Bonus Features</h3>
                 {project.bonusFeatures.map((bonus:string) => {
@@ -75,6 +80,7 @@ const ProjectPage = ({project}: DocumentData) => {
                     )
                 })}
             </div>
+            }
             </div>
             <div id="project-page-right">
                 <h3>Useful Links</h3>

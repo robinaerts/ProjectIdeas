@@ -154,7 +154,6 @@ a {
 #project-heading-container {
   display: flex;
   align-items: center;
-  gap: 3rem;
 }
 
 #description-container {
@@ -230,6 +229,12 @@ a {
   outline: none;
   color: white;
   margin-left: 3rem;
+  transition: all 100ms;
+}
+
+#upload-md:hover {
+  transform: scale(1.1);
+  cursor: pointer;
 }
 
 #add-project-form {
@@ -318,4 +323,14 @@ a {
 
 .right-form-input {
   width: 40vw;
+}
+
+.back-arrow {
+  font-weight: bold;
+  font-size: 2rem;
+  margin-right: 1rem;
+}
+
+.back-arrow:hover {
+  cursor: pointer;
 }
