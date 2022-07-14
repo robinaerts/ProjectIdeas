@@ -14,6 +14,7 @@ const ProjectPage = ({project}: DocumentData) => {
     useEffect(() => {
         const temp = localStorage.getItem(project.title.toLowerCase()) || "[]";
         setInitialLocalStorage(JSON.parse(temp));
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     const changeSelect = (e:any) => {
@@ -54,16 +55,16 @@ const ProjectPage = ({project}: DocumentData) => {
                 {project.constraints.length > 0 &&
             <div>  
                     <h3 className="project-page-section-title">Constraints</h3>
-                    {project.constraints.map((constraint:string) => {
-                    return <p className="project-page-constraint"> - {constraint}</p>
+                    {project.constraints.map((constraint:string, i:number) => {
+                    return <p key={i} className="project-page-constraint"> - {constraint}</p>
                     })}
             </div>
                 }   
             <div>
                 <h3 className="project-page-section-title">User Stories</h3>
-                {project.userStories.map((userStory:string) => {
+                {project.userStories.map((userStory:string, i:number) => {
                     return (
-                        <div className="checkbox-container">
+                        <div key={i} className="checkbox-container">
                             <input defaultChecked={initialLocalStorage.includes(userStory)} onChangeCapture={(e) => changeSelect(e)} id={userStory} type="checkbox"/>
                             <label htmlFor={userStory}>{userStory}</label>
                         </div>
@@ -73,9 +74,9 @@ const ProjectPage = ({project}: DocumentData) => {
             {project.bonusFeatures.length > 0 && 
             <div>
                 <h3 className="project-page-section-title">Bonus Features</h3>
-                {project.bonusFeatures.map((bonus:string) => {
+                {project.bonusFeatures.map((bonus:string, i:number) => {
                     return (
-                        <div className="checkbox-container">
+                        <div key={i} className="checkbox-container">
                             <input defaultChecked={initialLocalStorage.includes(bonus)} onChangeCapture={(e) => changeSelect(e)} style={{background: "green"}} id={bonus} type="checkbox"/>
                             <label htmlFor={bonus}>{bonus}</label>
                         </div>
@@ -88,13 +89,13 @@ const ProjectPage = ({project}: DocumentData) => {
                 <h3>Useful Links</h3>
                 {project.usefulLinks.map((link:string, i:number) => {
                     return (
-                        <a className="link-wrap" href={link}>Link {i+1}</a>
+                        <a key={i} className="link-wrap" href={link}>Link {i+1}</a>
                     )
                 })}
                 <h3 style={{marginTop: "3rem"}}>Example Projects</h3>
                 {project.examples.map((example:string, i:number) => {
                     return (
-                        <a className="link-wrap" href={example}>Link {i+1}</a>
+                        <a key={i} className="link-wrap" href={example}>Link {i+1}</a>
                     )
                 })}
                 <button onClick={() => setAddExample(true)} id="add-example-btn">ADD YOUR PROJECT</button>

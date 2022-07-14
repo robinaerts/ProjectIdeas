@@ -19,19 +19,17 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
 export const getStaticProps: GetStaticProps = async(context) => {
     const project = context.params?.project;
+    let projectData;
     if (typeof project == "string") {
         const docRef = doc(db, "projects", project)
         const docSnapshot = await getDoc(docRef);
-        return {
-            props: {
-                project: docSnapshot.data()
-            }
-        }
-    } else {
-        return {
-            props: {}
-        }
+        projectData = docSnapshot.data()
     }
+    return {
+      props: {
+          project: projectData
+      }
+  }
 }
 
 const BeginnerProject = ({project}: DocumentData) => {

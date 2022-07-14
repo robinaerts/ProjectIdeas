@@ -132,7 +132,7 @@ const Add: NextPage = () => {
               <input className='rounded-form-input right-form-input'/>
               <button className='form-multiple-add' onClick={(e) => addConstraint(e)}>ADD</button>
               <div>
-                {constraints.map((constraint:string) => <p>- {constraint}</p>)}
+                {constraints.map((constraint:string, i:number) => <p key={i}>- {constraint}</p>)}
               </div>
             </div>
           </div>
@@ -142,7 +142,7 @@ const Add: NextPage = () => {
               <input className='rounded-form-input right-form-input'/>
               <button className='form-multiple-add' onClick={(e) => addUserStory(e)}>ADD</button>
               <div>
-                {userStories.map((story:string) => <p>- {story}</p>)}
+                {userStories.map((story:string, i:number) => <p key={i}>- {story}</p>)}
               </div>
             </div>
           </div>
@@ -152,7 +152,7 @@ const Add: NextPage = () => {
               <input className='rounded-form-input right-form-input'/>
               <button className='form-multiple-add' onClick={(e) => addBonus(e)}>ADD</button>
               <div>
-                {bonusFeatures.map((bonus:string) => <p>- {bonus}</p>)}
+                {bonusFeatures.map((bonus:string, i:number) => <p key={i}>- {bonus}</p>)}
               </div>
             </div>
           </div>
@@ -162,7 +162,7 @@ const Add: NextPage = () => {
               <input className='rounded-form-input right-form-input'/>
               <button className='form-multiple-add' onClick={(e) => addUseful(e)}>ADD</button>
                 <div>
-                {usefulLinks.map((link:string) => <p>- {link}</p>)}
+                {usefulLinks.map((link:string, i:number) => <p key={i}>- {link}</p>)}
               </div>
             </div>
           </div>
