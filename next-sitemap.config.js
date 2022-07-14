@@ -1,7 +1,5 @@
-const siteUrl = "https://projectideas.ga";
+const siteUrl = "https://www.projectideas.ga";
 
-const options = {
+module.exports = {
   siteUrl,
 };
-
-export default options;
