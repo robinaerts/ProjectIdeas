@@ -18,8 +18,12 @@ const ProjectList = ({projects}: DocumentData) => {
     return (
         <div id="project-list">
             {projects.map((project: Project) => {
+                    let difficulty = "Loading...";
+                    if (project.difficulty == 1) difficulty = "Beginner";
+                    if (project.difficulty == 2) difficulty = "Intermediate";
+                    if (project.difficulty == 3) difficulty = "Advanced";
                 return (
-                <Link key={project.createdAt} href={"/beginner/" + project.title.replace(/ /g,'-').toLowerCase()}>
+                <Link key={project.createdAt} href={"/" + difficulty.toLowerCase() + "/" + project.title.replace(/ /g,'-').toLowerCase()}>
                 <div key={project.createdAt} className="project-select">
                     <h4 className="project-select-list-title">{project.title}</h4>
                     <p className="project-select-list-description">{project.shortDescription}</p>
