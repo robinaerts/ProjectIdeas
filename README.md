@@ -1,10 +1,7 @@
 # Project Ideas
 
 <div>
-    <a href="https://github.com/robinaerts/repo_name"><strong>Explore the docs »</strong></a>
-    <br />
-    <br />
-    <a href="https://github.com/robinaerts/repo_name">View Demo</a>
+    <a href="https://www.projectideas.ga">View Website</a>
     ·
     <a href="https://github.com/robinaerts/projectideas/issues">Report Bug</a>
     ·
