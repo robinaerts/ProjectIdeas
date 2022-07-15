@@ -1,10 +1,10 @@
-import { getDoc, doc, DocumentData, getDocs, collection } from "firebase/firestore";
+import { getDoc, doc, DocumentData, getDocs, collection, where, query } from "firebase/firestore";
 import { GetStaticPaths, GetStaticProps } from "next";
 import ProjectPage from "../../components/ProjectPage";
 import { db } from "../../config/firebase"
 
 export const getStaticPaths: GetStaticPaths = async () => {
-    const entries = await getDocs(collection(db, "projects"));
+  const entries = await getDocs(query(collection(db, "projects"), where("difficulty", "==", 1)));
   const paths = entries.docs.map(doc => ({
     params: {
       project: doc.id
