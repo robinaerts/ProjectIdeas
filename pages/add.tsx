@@ -4,6 +4,7 @@ import { useState } from 'react'
 import { db } from '../config/firebase';
 import Router from 'next/router';
 import Link from 'next/link';
+import Head from 'next/head';
 
 const Add: NextPage = () => {
   const [constraints, setConstraints] = useState<string[]>([]);
@@ -95,6 +96,12 @@ const Add: NextPage = () => {
 
   return (
     <div>
+    <Head>
+        <title>Add a project | Project Ideas</title>
+        <meta name="description" content="Contribute to this website by adding new ideas!" />
+        <meta property="og:title" content= "Add a project | Project Ideas" />
+        <meta property="og:description" content="Contribute to this website by adding new ideas!" />
+      </Head>
       <div id="add-project-title-heading">
         <Link href="/"><p className="back-arrow">&#60;</p></Link>
         <h1>New App Idea</h1>

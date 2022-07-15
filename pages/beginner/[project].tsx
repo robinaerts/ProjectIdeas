@@ -1,5 +1,6 @@
 import { getDoc, doc, DocumentData, getDocs, collection, where, query } from "firebase/firestore";
 import { GetStaticPaths, GetStaticProps } from "next";
+import Head from "next/head";
 import ProjectPage from "../../components/ProjectPage";
 import { db } from "../../config/firebase"
 
@@ -35,7 +36,15 @@ export const getStaticProps: GetStaticProps = async(context) => {
 const BeginnerProject = ({project}: DocumentData) => {
     
 return(
+  <>
+    <Head>
+        <title>{project.title} | Project Ideas</title>
+        <meta name="description" content={project.shortDescription} />
+        <meta property="og:title" content={project.title  + " | Project Ideas"} />
+        <meta property="og:description" content={project.shortDescription} />
+      </Head>
     <ProjectPage project={project}/>
+  </>
 )
 }
 
