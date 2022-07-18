@@ -1,10 +1,10 @@
-import { doc, setDoc } from 'firebase/firestore';
-import type { NextPage } from 'next'
-import { useState } from 'react'
-import { db } from '../config/firebase';
-import Router from 'next/router';
-import Link from 'next/link';
-import Head from 'next/head';
+import { doc, setDoc } from "firebase/firestore";
+import type { NextPage } from "next";
+import { useState } from "react";
+import { db } from "../config/firebase";
+import Router from "next/router";
+import Link from "next/link";
+import Head from "next/head";
 
 const Add: NextPage = () => {
   const [constraints, setConstraints] = useState<string[]>([]);
@@ -12,45 +12,45 @@ const Add: NextPage = () => {
   const [bonusFeatures, setBonusFeatures] = useState<string[]>([]);
   const [usefulLinks, setUsefulLinks] = useState<string[]>([]);
 
-  const addConstraint = (e:any) => {
+  const addConstraint = (e: any) => {
     e.preventDefault();
-    const newConstraint:string = e.target.parentNode.children[0].value;
+    const newConstraint: string = e.target.parentNode.children[0].value;
     const constraintCopy = constraints.map((value) => value);
     constraintCopy.push(newConstraint);
     e.target.parentNode.children[0].value = "";
     setConstraints(constraintCopy);
-  }
+  };
 
-  const addUserStory = (e:any) => {
+  const addUserStory = (e: any) => {
     e.preventDefault();
-    const newUserStory:string = e.target.parentNode.children[0].value;
+    const newUserStory: string = e.target.parentNode.children[0].value;
     const userStoryCopy = userStories.map((value) => value);
     userStoryCopy.push(newUserStory);
     e.target.parentNode.children[0].value = "";
     setUserStories(userStoryCopy);
   };
 
-  const addBonus = (e:any) => {
+  const addBonus = (e: any) => {
     e.preventDefault();
-     const newBonusFeature:string = e.target.parentNode.children[0].value;
+    const newBonusFeature: string = e.target.parentNode.children[0].value;
     const bonusFeatureCopy = bonusFeatures.map((value) => value);
     bonusFeatureCopy.push(newBonusFeature);
     e.target.parentNode.children[0].value = "";
     setBonusFeatures(bonusFeatureCopy);
   };
 
-  const addUseful = (e:any) => {
+  const addUseful = (e: any) => {
     e.preventDefault();
-    const newUsefulLinks:string = e.target.parentNode.children[0].value;
+    const newUsefulLinks: string = e.target.parentNode.children[0].value;
     const usefulLinksCopy = usefulLinks.map((value) => value);
     usefulLinksCopy.push(newUsefulLinks);
     e.target.parentNode.children[0].value = "";
     setUsefulLinks(usefulLinksCopy);
   };
 
-  const submitProject = async(e:any) => {
+  const submitProject = async (e: any) => {
     e.preventDefault();
-    console.log(e.target[1].value)
+    console.log(e.target[1].value);
     const shortDescription = e.target[2].value;
     const description = e.target[3].value;
 
@@ -59,7 +59,9 @@ const Add: NextPage = () => {
     if (e.target[1].value == "Advanced") difficulty = 2;
 
     const title = e.target[0].value;
-    const noWhitespaceTitle = e.target[0].value.replace(/ /g,'-').toLowerCase()
+    const noWhitespaceTitle = e.target[0].value
+      .replace(/ /g, "-")
+      .toLowerCase();
 
     const project = {
       constraints,
@@ -71,12 +73,14 @@ const Add: NextPage = () => {
       title,
       usefulLinks,
       userStories,
-      createdAt: Date.now()
-    }
+      createdAt: Date.now(),
+    };
     await setDoc(doc(db, "projects", noWhitespaceTitle), project);
 
-    Router.push("/" + e.target[1].value.toLowerCase() + "/" + noWhitespaceTitle)
-  }
+    Router.push(
+      "/" + e.target[1].value.toLowerCase() + "/" + noWhitespaceTitle
+    );
+  };
 
   // const uploadMd = (e:any) => {
   //   const file = e.target.files[0];
@@ -96,25 +100,34 @@ const Add: NextPage = () => {
 
   return (
     <div>
-    <Head>
+      <Head>
         <title>Add a project | Project Ideas</title>
-        <meta name="description" content="Contribute to this website by adding new ideas!" />
-        <meta property="og:title" content= "Add a project | Project Ideas" />
-        <meta property="og:description" content="Contribute to this website by adding new ideas!" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta
+          name="description"
+          content="Contribute to this website by adding new ideas!"
+        />
+        <meta property="og:title" content="Add a project | Project Ideas" />
+        <meta
+          property="og:description"
+          content="Contribute to this website by adding new ideas!"
+        />
       </Head>
       <div id="add-project-title-heading">
-        <Link href="/"><p className="back-arrow">&#60;</p></Link>
+        <Link href="/">
+          <p className="back-arrow">&#60;</p>
+        </Link>
         <h1>New App Idea</h1>
         {/* <button id="upload-md" onClick={(e:any) => e.target.children[0] && e.target.children[0].click()}><input onClick={(e) => uploadMd(e)} accept='.md' id="file" style={{display: "none"}} type="file" /> | Upload .md file</button> */}
       </div>
       <form id="add-project-form" onSubmit={(e) => submitProject(e)}>
         <div id="left-form">
           <div id="title-difficulty-container">
-            <div className='add-project-label-input'>
+            <div className="add-project-label-input">
               <label>Title</label>
-              <input required className='rounded-form-input'/>
+              <input required className="rounded-form-input" />
             </div>
-            <div className='add-project-label-input'>
+            <div className="add-project-label-input">
               <label>Difficulty</label>
               <select id="difficulty-select">
                 <option>Beginner</option>
@@ -123,61 +136,94 @@ const Add: NextPage = () => {
               </select>
             </div>
           </div>
-          <div className='add-project-label-input'>
+          <div className="add-project-label-input">
             <label>Short Description</label>
-            <input required className='rounded-form-input'/>
+            <input required className="rounded-form-input" />
           </div>
-          <div className='add-project-label-input'>
+          <div className="add-project-label-input">
             <label>Description</label>
-            <textarea required id="form-description" rows={10} cols={50}></textarea>
+            <textarea
+              required
+              id="form-description"
+              rows={10}
+              cols={50}
+            ></textarea>
           </div>
         </div>
         <div id="form-right">
-          <div className='add-project-label-input'>
+          <div className="add-project-label-input">
             <label>Constraints</label>
             <div>
-              <input className='rounded-form-input right-form-input'/>
-              <button className='form-multiple-add' onClick={(e) => addConstraint(e)}>ADD</button>
+              <input className="rounded-form-input right-form-input" />
+              <button
+                className="form-multiple-add"
+                onClick={(e) => addConstraint(e)}
+              >
+                ADD
+              </button>
               <div>
-                {constraints.map((constraint:string, i:number) => <p key={i}>- {constraint}</p>)}
+                {constraints.map((constraint: string, i: number) => (
+                  <p key={i}>- {constraint}</p>
+                ))}
               </div>
             </div>
           </div>
-          <div className='add-project-label-input'>
+          <div className="add-project-label-input">
             <label>User stories</label>
             <div>
-              <input className='rounded-form-input right-form-input'/>
-              <button className='form-multiple-add' onClick={(e) => addUserStory(e)}>ADD</button>
+              <input className="rounded-form-input right-form-input" />
+              <button
+                className="form-multiple-add"
+                onClick={(e) => addUserStory(e)}
+              >
+                ADD
+              </button>
               <div>
-                {userStories.map((story:string, i:number) => <p key={i}>- {story}</p>)}
+                {userStories.map((story: string, i: number) => (
+                  <p key={i}>- {story}</p>
+                ))}
               </div>
             </div>
           </div>
-          <div className='add-project-label-input'>
+          <div className="add-project-label-input">
             <label>Bonus features</label>
             <div>
-              <input className='rounded-form-input right-form-input'/>
-              <button className='form-multiple-add' onClick={(e) => addBonus(e)}>ADD</button>
+              <input className="rounded-form-input right-form-input" />
+              <button
+                className="form-multiple-add"
+                onClick={(e) => addBonus(e)}
+              >
+                ADD
+              </button>
               <div>
-                {bonusFeatures.map((bonus:string, i:number) => <p key={i}>- {bonus}</p>)}
+                {bonusFeatures.map((bonus: string, i: number) => (
+                  <p key={i}>- {bonus}</p>
+                ))}
               </div>
             </div>
           </div>
-          <div className='add-project-label-input'>
+          <div className="add-project-label-input">
             <label>Useful links</label>
             <div>
-              <input className='rounded-form-input right-form-input'/>
-              <button className='form-multiple-add' onClick={(e) => addUseful(e)}>ADD</button>
-                <div>
-                {usefulLinks.map((link:string, i:number) => <p key={i}>- {link}</p>)}
+              <input className="rounded-form-input right-form-input" />
+              <button
+                className="form-multiple-add"
+                onClick={(e) => addUseful(e)}
+              >
+                ADD
+              </button>
+              <div>
+                {usefulLinks.map((link: string, i: number) => (
+                  <p key={i}>- {link}</p>
+                ))}
               </div>
             </div>
           </div>
-          <input id="submit-form-button" type="SUBMIT"/>
+          <input id="submit-form-button" type="SUBMIT" />
         </div>
       </form>
     </div>
-  )
-}
+  );
+};
 
-export default Add
+export default Add;
