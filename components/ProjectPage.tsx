@@ -5,17 +5,33 @@ import AddExample from "./AddExample";
 
 const ProjectPage = ({ project }: DocumentData) => {
   const [addExample, setAddExample] = useState(false);
+  const [topicsFinished, setTopicsFinished] = useState<string[]>([]);
+
   let difficulty = "Loading...";
   if (project.difficulty == 1) difficulty = "Beginner";
   if (project.difficulty == 2) difficulty = "Intermediate";
   if (project.difficulty == 3) difficulty = "Advanced";
 
-  const [initialLocalStorage, setInitialLocalStorage] = useState<string[]>([]);
   useEffect(() => {
-    const temp = localStorage.getItem(project.title.toLowerCase()) || "[]";
-    setInitialLocalStorage(JSON.parse(temp));
+    const data = window.localStorage.getItem(project.title.toLowerCase());
+    if (data !== null) setTopicsFinished(JSON.parse(data));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  useEffect(() => {
+    if (addExample) {
+      document.body.style.overflowY = "hidden";
+    } else {
+      document.body.style.overflowY = "scroll";
+    }
+  }, [addExample]);
+
+  useEffect(() => {
+    localStorage.setItem(
+      project.title.toLowerCase(),
+      JSON.stringify(topicsFinished)
+    );
+  }, [topicsFinished]);
 
   const changeSelect = (e: any) => {
     const key = project.title.toLowerCase();
@@ -35,9 +51,12 @@ const ProjectPage = ({ project }: DocumentData) => {
       const newArr = arr.filter((item: string) => {
         return item.toLowerCase() != id.toLowerCase();
       });
-
-      localStorage.setItem(key, JSON.stringify(newArr));
+      setTopicsFinished(newArr);
     }
+  };
+
+  const isChecked = (item: string) => {
+    return topicsFinished.includes(item);
   };
 
   return (
@@ -77,7 +96,7 @@ const ProjectPage = ({ project }: DocumentData) => {
             return (
               <div key={i} className="checkbox-container">
                 <input
-                  defaultChecked={initialLocalStorage.includes(userStory)}
+                  defaultChecked={isChecked(userStory)}
                   onChangeCapture={(e) => changeSelect(e)}
                   id={userStory}
                   type="checkbox"
@@ -94,7 +113,7 @@ const ProjectPage = ({ project }: DocumentData) => {
               return (
                 <div key={i} className="checkbox-container">
                   <input
-                    defaultChecked={initialLocalStorage.includes(bonus)}
+                    defaultChecked={isChecked(bonus)}
                     onChangeCapture={(e) => changeSelect(e)}
                     style={{ background: "green" }}
                     id={bonus}

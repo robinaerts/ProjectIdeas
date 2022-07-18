@@ -112,7 +112,7 @@ a {
   font-weight: bold;
   font-size: 1.2rem;
   margin-bottom: 0.7rem;
-  transform: translateY(2rem);
+  position: absolute;
   transition: all 100ms;
 }
 
@@ -121,6 +121,7 @@ a {
   width: 80%;
   text-align: center;
   transition: 100ms all;
+  margin-top: 2rem;
 }
 
 .project-select:hover .project-select-list-description {
@@ -128,7 +129,7 @@ a {
 }
 
 .project-select:hover .project-select-list-title {
-  transform: translateY(0);
+  transform: translateY(-2rem);
 }
 
 .project-select:hover {
@@ -355,7 +356,6 @@ a {
   position: absolute;
   width: 100vw;
   height: 100vh;
-  top: 0;
   left: 0;
 }
 
